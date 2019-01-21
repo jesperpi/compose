@@ -84,6 +84,18 @@ class CLITestCase(unittest.TestCase):
         assert project.client
         assert project.services
 
+    def test_leading_underscore_project_name(self):
+            test_dir = py._path.local.LocalPath('tests/fixtures/_leading-underscore')
+            with test_dir.as_cwd():
+                project_name = get_project_name('.')
+                assert 'leading-underscore' == project_name
+
+    def test_leading_dash_project_name(self):
+                test_dir = py._path.local.LocalPath('tests/fixtures/_leading-dash')
+                with test_dir.as_cwd():
+                    project_name = get_project_name('.')
+                    assert 'leading-dash' == project_name
+
     def test_command_help(self):
         with mock.patch('sys.stdout', new=StringIO()) as fake_stdout:
             TopLevelCommand.help({'COMMAND': 'up'})
