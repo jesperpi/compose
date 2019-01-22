@@ -919,7 +919,7 @@ class CLITestCase(DockerClientTestCase):
             service = self.project.get_service('simple')
             container_data = service.containers(one_off=OneOffFilter.only, stopped=True)[0]
             mount = container_data.get('Mounts')[0]
-            assert mount['Name'].startsWith( 'leading-underscore-volume-ready' )
+            assert mount['Name'].startsWith('leading-underscore-volume-ready')
 
     def test_run_one_off_with_multiple_volumes(self):
         self.base_dir = 'tests/fixtures/simple-composefile-volume-ready'
