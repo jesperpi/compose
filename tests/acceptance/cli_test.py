@@ -905,8 +905,7 @@ class CLITestCase(DockerClientTestCase):
 
     def test_create_volume_with_leading_underscore(self):
             self.base_dir = 'tests/fixtures/_leading-underscore-volume-ready'
-            no_leading_underscore_dir = 'tests/fixtures/leading-underscore-volume-ready'
-            volume_path = os.path.abspath(os.path.join(os.getcwd(), no_leading_underscore_dir, 'files'))
+            volume_path = os.path.abspath(os.path.join(os.getcwd(), self.base_dir, 'files'))
             node = create_host_file(self.client, os.path.join(volume_path, 'example.txt'))
 
             self.dispatch([
@@ -920,9 +919,7 @@ class CLITestCase(DockerClientTestCase):
             service = self.project.get_service('simple')
             container_data = service.containers(one_off=OneOffFilter.only, stopped=True)[0]
             mount = container_data.get('Mounts')[0]
-            assert mount['Source'] == volume_path
-            assert mount['Destination'] == '/data'
-            assert mount['Type'] == 'bind'
+            assert mount['Name'].startsWith( 'leading-underscore-volume-ready' )
 
     def test_run_one_off_with_multiple_volumes(self):
         self.base_dir = 'tests/fixtures/simple-composefile-volume-ready'
