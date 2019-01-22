@@ -903,7 +903,7 @@ class CLITestCase(DockerClientTestCase):
         assert mount['Destination'] == '/data'
         assert mount['Type'] == 'bind'
 
-    def test_run_one_off_with_volume(self):
+    def test_create_volume_with_leading_underscore(self):
             self.base_dir = 'tests/fixtures/_leading-underscore-volume-ready'
             no_leading_underscore_dir = 'tests/fixtures/leading-underscore-volume-ready'
             volume_path = os.path.abspath(os.path.join(os.getcwd(), no_leading_underscore_dir, 'files'))
